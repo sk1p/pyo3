@@ -801,7 +801,7 @@ mod tests {
             assert!(seq[1].as_ptr() == obj.as_ptr());
         });
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             assert_eq!(1, obj.get_refcnt(py));
         });
     }

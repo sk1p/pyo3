@@ -197,7 +197,7 @@ mod tests {
             );
         });
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             assert_eq!(count, obj.get_refcnt(py));
         });
     }

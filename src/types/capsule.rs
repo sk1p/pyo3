@@ -492,7 +492,7 @@ mod tests {
             cap.into()
         });
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             let f = unsafe { cap.bind(py).reference::<fn(u32) -> u32>() };
             assert_eq!(f(123), 123);
         });
@@ -556,7 +556,7 @@ mod tests {
             cap.into()
         });
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             let ctx: &Vec<u8> = unsafe { cap.bind(py).reference() };
             assert_eq!(ctx, &[1, 2, 3, 4]);
         })
@@ -575,7 +575,7 @@ mod tests {
             cap.into()
         });
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             let ctx_ptr: *mut c_void = cap.bind(py).context().unwrap();
             let ctx = unsafe { *Box::from_raw(ctx_ptr.cast::<&Vec<u8>>()) };
             assert_eq!(ctx, &vec![1_u8, 2, 3, 4]);
@@ -592,7 +592,7 @@ mod tests {
             context.send(true).unwrap();
         }
 
-        Python::with_gil(|py| {
+        Python::with_gil(move |py| {
             let name = CString::new("foo").unwrap();
             let cap = PyCapsule::new_bound_with_destructor(py, 0, Some(name), destructor).unwrap();
             cap.set_context(Box::into_raw(Box::new(tx)).cast()).unwrap();
