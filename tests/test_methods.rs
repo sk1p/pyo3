@@ -877,6 +877,7 @@ fn test_from_sequence() {
     });
 }
 
+#[cfg(feature = "py-clone")]
 #[pyclass]
 struct r#RawIdents {
     #[pyo3(get, set)]
@@ -885,6 +886,7 @@ struct r#RawIdents {
     r#subsubtype: PyObject,
 }
 
+#[cfg(feature = "py-clone")]
 #[pymethods]
 impl r#RawIdents {
     #[new]
@@ -949,6 +951,7 @@ impl r#RawIdents {
     }
 }
 
+#[cfg(feature = "py-clone")]
 #[test]
 fn test_raw_idents() {
     Python::with_gil(|py| {

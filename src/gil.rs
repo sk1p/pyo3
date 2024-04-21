@@ -722,6 +722,7 @@ mod tests {
         assert!(!gil_is_acquired());
     }
 
+    #[cfg(feature = "py-clone")]
     #[test]
     #[should_panic]
     fn test_allow_threads_updates_refcounts() {
@@ -745,6 +746,7 @@ mod tests {
         })
     }
 
+    #[cfg(feature = "py-clone")]
     #[test]
     fn test_clone_with_gil() {
         Python::with_gil(|py| {
